@@ -22,7 +22,7 @@ const WHO = {
   narrator: { name: '', col: '#2a1f5e' },
 };
 
-// Dialogue lines. `en` is the voice-over script (the game's Faktik voices speak English, text is Mongolian, as in the films).
+// Dialogue lines. MN/EN subtitles share the same IDs; existing voice-over files speak English.
 const L = {
   // tutorial
   t1: { who: 'nyagtaa', face: 'happy', mn: 'Сайн уу! Би Нягтаа. Хуурмаг Фактикийн биед орсныг гадаад төрхөөр нь мэдэхгүй. Цорын ганц тэмдэг нь тэдний үг.', en: "Hi! I'm Nyagtaa. You can't tell from the outside when Khuurmag hides inside a Faktik. The only sign is their words." },

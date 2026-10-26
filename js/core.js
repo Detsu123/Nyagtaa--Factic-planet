@@ -46,6 +46,7 @@ function txt(scene, x, y, s, size = 40, color = COL.inkS, o = {}) {
   const t = scene.add.text(x, y, s, Object.assign({ fontFamily: FONT, fontSize: size + 'px', fontStyle: o.weight || '900', color, align: o.align || 'center', lineSpacing: o.ls ?? 4 },
     o.wrap ? { wordWrap: { width: o.wrap, useAdvancedWrap: true } } : {}, o.stroke ? { stroke: o.stroke, strokeThickness: o.st || 8 } : {}));
   t.setOrigin(o.ox ?? 0.5, o.oy ?? 0.5); if (o.shadow) t.setShadow(0, o.shadow, 'rgba(20,10,50,0.45)', 0, true, true);
+  if (o.translate !== false) I18N.bindText(t, s, { size, maxWidth: o.maxWidth, maxHeight: o.maxHeight });
   return t;
 }
 // paper panel: cream card with ink outline, offset shadow, optional ruled lines and washi tape
@@ -63,14 +64,14 @@ function paper(scene, x, y, w, h, o = {}) {
 }
 // sticker button: chunky ink outline, press-down travel, wobble on hover
 function button(scene, x, y, label, cb, o = {}) {
-  const w = o.w || Math.max(260, label.length * (o.size || 40) * 0.62 + 90), h = o.h || 96, fill = o.fill ?? COL.gold, ink = COL.ink, travel = 9;
+  const w = o.w || Math.max(260, Math.max(label.length, I18N.text(label, 'en').length) * (o.size || 40) * 0.62 + 90), h = o.h || 96, fill = o.fill ?? COL.gold, ink = COL.ink, travel = 9;
   const c = scene.add.container(x, y); const g = scene.add.graphics(); c.add(g);
   const draw = (down) => { g.clear(); g.fillStyle(ink, 1).fillRoundedRect(-w / 2, -h / 2 + travel, w, h, h * 0.36);
     g.fillStyle(fill, 1).fillRoundedRect(-w / 2, -h / 2 + (down ? travel - 2 : 0), w, h, h * 0.36);
     g.fillStyle(0xffffff, 0.35).fillRoundedRect(-w / 2 + 14, -h / 2 + (down ? travel - 2 : 0) + 9, w - 28, h * 0.28, h * 0.14);
     g.lineStyle(6, ink, 1).strokeRoundedRect(-w / 2, -h / 2 + (down ? travel - 2 : 0), w, h, h * 0.36); };
   draw(false);
-  const t = txt(scene, 0, 0, label, o.size || 40, o.color || COL.inkS); c.add(t);
+  const t = txt(scene, 0, 0, label, o.size || 40, o.color || COL.inkS, { maxWidth: w - (o.icon ? 132 : 44), maxHeight: h - 24 }); c.add(t);
   if (o.icon) { const ic = scene.add.image(-w / 2 + 52, 0, o.icon).setDisplaySize(56, 56); c.add(ic); t.x += 22; c.icon = ic; }
   c.setSize(w, h + travel); c.setInteractive({ useHandCursor: true });
   let locked = !!o.locked; c.locked = locked;
@@ -83,8 +84,10 @@ function button(scene, x, y, label, cb, o = {}) {
 }
 function toast(scene, s, o = {}) { // small sticker that pops and floats away
   const c = scene.add.container(o.x ?? GW / 2, o.y ?? 180).setDepth(5000).setScrollFactor(0);
-  const t = txt(scene, 0, 0, s, o.size || 38, o.color || COL.inkS); const w = t.width + 60, h = t.height + 30;
-  const g = scene.add.graphics(); g.fillStyle(COL.ink, 1).fillRoundedRect(-w / 2, -h / 2 + 7, w, h, 22); g.fillStyle(o.fill ?? COL.cream, 1).fillRoundedRect(-w / 2, -h / 2, w, h, 22); g.lineStyle(5, COL.ink).strokeRoundedRect(-w / 2, -h / 2, w, h, 22);
+  const t = txt(scene, 0, 0, s, o.size || 38, o.color || COL.inkS, { maxWidth: GW - 100 });
+  const g = scene.add.graphics();
+  const draw = () => { const w = t.width + 60, h = t.height + 30; g.clear(); g.fillStyle(COL.ink, 1).fillRoundedRect(-w / 2, -h / 2 + 7, w, h, 22); g.fillStyle(o.fill ?? COL.cream, 1).fillRoundedRect(-w / 2, -h / 2, w, h, 22); g.lineStyle(5, COL.ink).strokeRoundedRect(-w / 2, -h / 2, w, h, 22); };
+  draw(); t.on('localized', draw);
   c.add([g, t]); c.setScale(0.3).setAngle(o.angle ?? -3);
   scene.tweens.add({ targets: c, scale: 1, duration: 320, ease: 'Back.Out' });
   scene.tweens.add({ targets: c, y: c.y - 40, alpha: 0, delay: o.hold ?? 1300, duration: 500, onComplete: () => c.destroy() });
@@ -124,11 +127,18 @@ class Dialog {
     g.lineStyle(2, 0x9fc3ff, 0.35); for (let ly = -h / 2 + 64; ly < h / 2 - 16; ly += 52) g.lineBetween(-w / 2 + 30, ly, w / 2 - 30, ly);
     g.lineStyle(7, COL.ink, 1).strokeRoundedRect(-w / 2, -h / 2, w, h, 34); this.box.add(g);
     this.tag = scene.add.container(-w / 2 + 170, -h / 2 - 6); this.tagG = scene.add.graphics(); this.tagT = txt(scene, 0, 0, '', 34, '#ffffff'); this.tag.add([this.tagG, this.tagT]); this.tag.setAngle(-3); this.box.add(this.tag);
-    this.body = txt(scene, -w / 2 + 330, -h / 2 + 34, '', 40, COL.inkS, { ox: 0, oy: 0, align: 'left', wrap: w - 400, weight: '800', ls: 10 }); this.box.add(this.body);
+    this.body = txt(scene, -w / 2 + 330, -h / 2 + 34, '', 40, COL.inkS, { ox: 0, oy: 0, align: 'left', wrap: w - 400, weight: '800', ls: 10, translate: false }); this.box.add(this.body);
     this.next = txt(scene, w / 2 - 50, h / 2 - 36, '▼', 34, '#ff6b7a'); this.box.add(this.next);
     scene.tweens.add({ targets: this.next, y: this.next.y + 8, duration: 420, yoyo: true, repeat: -1 });
     this.dim.on('pointerdown', () => this.tap());
     this.key = scene.input.keyboard && scene.input.keyboard.on('keydown', (e) => { if (this.root.visible && (e.code === 'Space' || e.code === 'Enter')) this.tap(); });
+    const unsubscribe = I18N.onChange(() => {
+      if (!this.busy || !this.cur) return;
+      this.full = I18N.text(this.cur.mn);
+      this.finishType(); // Show the same line in full; do not advance or restart the scene.
+      this.drawTag(WHO[this.cur.who] || WHO.narrator);
+    });
+    scene.events.once('shutdown', unsubscribe);
   }
   // lines: array of ids from L, or {id} / {who, mn, face}
   say(lines, done) { this.q = lines.map(l => typeof l === 'string' ? Object.assign({ id: l }, L[l]) : l); this.done = done; this.root.setVisible(true); this.busy = true;
@@ -143,27 +153,55 @@ class Dialog {
       if (changed) { this.portrait.y = GH - 230 + 60; this.portrait.setAlpha(0); s.tweens.add({ targets: this.portrait, y: GH - 230, alpha: 1, duration: 260, ease: 'Back.Out' }); }
       else { s.tweens.add({ targets: this.portrait, scaleY: sc * 1.04, scaleX: sc * 0.97, duration: 110, yoyo: true }); } }
     else this.portrait.setVisible(false);
-    this.tagG.clear(); if (who.name) { this.tagT.setText(who.name); const tw = this.tagT.width + 48; this.tagG.fillStyle(COL.ink, 1).fillRoundedRect(-tw / 2, -27 + 6, tw, 54, 18); this.tagG.fillStyle(Phaser.Display.Color.HexStringToColor(who.col).color, 1).fillRoundedRect(-tw / 2, -27, tw, 54, 18); this.tagG.lineStyle(5, COL.ink).strokeRoundedRect(-tw / 2, -27, tw, 54, 18); this.tag.setVisible(true); } else this.tag.setVisible(false);
+    this.drawTag(who);
     this.body.setFontStyle(l.who === 'narrator' ? 'italic 800' : '800');
-    this.full = l.mn; this.n = 0; this.body.setText(''); this.next.setVisible(false); this.typing = true;
+    this.full = I18N.text(l.mn); this.n = 0; this.body.setText(''); this.next.setVisible(false); this.typing = true;
     const v = l.id ? SND.voice(l.id) : null;
     if (this.tm) this.tm.remove();
     this.tm = s.time.addEvent({ delay: 24, loop: true, callback: () => { this.n += 1; this.body.setText(this.full.slice(0, this.n)); if (!v && this.n % 3 === 0 && this.full[this.n] !== ' ') SND.sfx('blip', 0.25, 0.9 + Math.random() * 0.3); if (this.n >= this.full.length) this.finishType(); } });
+  }
+  drawTag(who) {
+    this.tagG.clear(); if (!who.name) { this.tag.setVisible(false); return; }
+    this.tagT.setText(who.name); const tw = this.tagT.width + 48;
+    this.tagG.fillStyle(COL.ink, 1).fillRoundedRect(-tw / 2, -21, tw, 54, 18);
+    this.tagG.fillStyle(Phaser.Display.Color.HexStringToColor(who.col).color, 1).fillRoundedRect(-tw / 2, -27, tw, 54, 18);
+    this.tagG.lineStyle(5, COL.ink).strokeRoundedRect(-tw / 2, -27, tw, 54, 18); this.tag.setVisible(true);
   }
   finishType() { if (this.tm) this.tm.remove(); this.tm = null; this.typing = false; this.body.setText(this.full); this.next.setVisible(true); }
   tap() { if (!this.busy) return; if (this.typing) return this.finishType(); SND.sfx('page', 0.35); this.show(); }
   close() { SND.stopVoice(); this.busy = false; this.s.tweens.add({ targets: this.dim, fillAlpha: 0, duration: 200 }); this.root.setVisible(false); const d = this.done; this.done = null; if (d) d(); }
 }
 
-// ---------- full-screen video (DOM <video>, subtitles are burned in)
+// ---------- full-screen video, with timed English captions over the original MN subtitles
 const VIDEO = {
+  stop: null,
   play(src, onEnd, o = {}) {
+    if (this.stop) this.stop();
     const wrap = document.getElementById('vid'), v = document.getElementById('vv'), skip = document.getElementById('skip');
-    let done = false; const finish = () => { if (done) return; done = true; v.pause(); v.removeAttribute('src'); v.load(); wrap.hidden = true; skip.classList.remove('on'); wrap.querySelectorAll('.tap').forEach(e => e.remove()); onEnd && onEnd(); };
+    let done = false, skipTimer, detachCaptions;
+    const finish = (advance = true) => {
+      if (done) return; done = true; clearTimeout(skipTimer);
+      if (detachCaptions) detachCaptions();
+      v.onended = null; v.onerror = null; skip.onclick = null; skip.disabled = true;
+      v.pause(); v.removeAttribute('src'); v.load(); wrap.hidden = true;
+      skip.classList.remove('on'); wrap.querySelectorAll('.tap').forEach(e => e.remove());
+      this.stop = null;
+      if (advance && onEnd) onEnd();
+    };
+    this.stop = () => finish(false);
     wrap.hidden = false; v.src = src; v.muted = !G.sound; v.currentTime = 0;
-    skip.onclick = (e) => { e.stopPropagation(); finish(); }; setTimeout(() => skip.classList.add('on'), o.skipDelay ?? 1200);
-    v.onended = finish; v.onerror = () => { console.warn('video failed', src); finish(); };
+    detachCaptions = VideoCaptions.attach(v, document.getElementById('video-caption'), src);
+    skip.disabled = true; skip.classList.remove('on');
+    skip.onclick = (e) => { e.stopPropagation(); finish(); };
+    skipTimer = setTimeout(() => { if (!done) { skip.disabled = false; skip.classList.add('on'); } }, o.skipDelay ?? 1200);
+    v.onended = () => finish(); v.onerror = () => { console.warn('video failed', src); finish(); };
     const p = v.play(); if (p && p.catch) p.catch(() => { // autoplay with sound blocked: ask for a tap
-      const t = document.createElement('div'); t.className = 'tap'; t.textContent = '▶  Үзэх'; t.onclick = () => { t.remove(); v.play().catch(() => { v.muted = true; v.play(); }); }; wrap.appendChild(t); });
+      if (done) return;
+      const t = document.createElement('div'); t.className = 'tap'; t.dataset.i18n = '▶  Үзэх'; t.textContent = I18N.text(t.dataset.i18n);
+      t.onclick = () => {
+        t.remove(); v.play().catch(() => { if (!done) { v.muted = true; v.play().catch(() => finish()); } });
+      };
+      wrap.appendChild(t);
+    });
   },
 };

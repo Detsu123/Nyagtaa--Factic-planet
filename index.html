@@ -4,15 +4,39 @@
 <meta name="theme-color" content="#140c2e">
 <style>
 @font-face { font-family: 'Nunito'; src: url('assets/fonts/Nunito.ttf') format('truetype'); font-weight: 200 1000; font-display: block; }
-:root { --night: #140c2e; --ink: #2a1f5e; --cream: #fff8ee; --gold: #ffc94a; color-scheme: dark; }
+:root { --night: #140c2e; --ink: #2a1f5e; --cream: #fff8ee; --gold: #ffc94a; --toolbar-height: calc(48px + env(safe-area-inset-top, 0px)); color-scheme: dark; }
 html, body { height: 100%; }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--night); overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', 'Trebuchet MS', sans-serif; }
-#game { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#game { position: fixed; inset: var(--toolbar-height) 0 0; display: flex; align-items: center; justify-content: center; }
 #game canvas { display: block; }
-#vid { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 20; }
+#language-start { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; box-sizing: border-box; padding: max(20px, env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) max(20px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); overflow: auto; touch-action: pan-y; background: radial-gradient(ellipse at 50% 25%, #42346e 0%, var(--night) 75%); }
+.language-card { position: relative; width: min(600px, 100%); margin: auto; padding: 34px; box-sizing: border-box; border: 4px solid var(--ink); border-radius: 32px; background: var(--cream); color: var(--ink); text-align: center; box-shadow: 0 12px 0 #0b071b, 0 24px 70px #0005; }
+.language-mascot { display: block; width: 108px; height: 112px; object-fit: contain; margin: 0 auto 12px; }
+.language-brand { margin: 0 0 22px; font-size: 16px; font-weight: 900; letter-spacing: 3px; color: #6d5894; }
+#language-heading { margin: 0; font-size: clamp(26px, 5vw, 36px); font-weight: 900; line-height: 1.2; }
+.language-subtitle { margin: 8px 0 26px; font-size: 19px; font-weight: 700; color: #6d5894; }
+.language-options { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.language-options button { display: flex; flex-direction: column; align-items: center; gap: 5px; min-height: 128px; padding: 18px 12px; border: 3px solid var(--ink); border-radius: 20px; background: var(--gold); color: var(--ink); box-shadow: 0 6px 0 var(--ink); font-family: inherit; cursor: pointer; touch-action: manipulation; }
+.language-options button[lang="en"] { background: #b9f0ff; }
+.language-options button:hover { filter: brightness(1.05); }
+.language-options button:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
+.language-options button:focus-visible { outline: 4px solid #8b5cf6; outline-offset: 5px; }
+.language-code { font-size: 14px; font-weight: 900; letter-spacing: 2px; opacity: .7; }
+.language-name { font-size: 28px; font-weight: 900; }
+.language-action { font-size: 14px; font-weight: 800; }
+@media (max-width: 440px) { .language-card { padding: 24px 18px; } .language-options { grid-template-columns: 1fr; gap: 16px; } .language-options button { min-height: 100px; padding: 12px; } .language-mascot { width: 80px; height: 84px; } .language-brand { margin-bottom: 16px; } }
+@media (max-height: 500px) and (orientation: landscape) { .language-card { padding: 20px 28px; } .language-mascot { display: none; } .language-brand { margin-bottom: 10px; } .language-subtitle { margin-bottom: 18px; } .language-options button { min-height: 104px; padding: 10px; } }
+#language-controls { position: fixed; inset: 0 0 auto; height: var(--toolbar-height); box-sizing: border-box; padding: env(safe-area-inset-top, 0px) max(12px, env(safe-area-inset-right, 0px)) 0 12px; display: flex; align-items: center; justify-content: flex-end; gap: 6px; background: var(--night); color: var(--cream); z-index: 50; }
+#language-controls span { font-size: 14px; font-weight: 800; margin-right: 6px; }
+#language-controls button { min-width: 48px; min-height: 40px; border: 2px solid #b9a4ff; border-radius: 12px; background: var(--ink); color: var(--cream); font: 900 16px 'Nunito', sans-serif; cursor: pointer; touch-action: manipulation; }
+#language-controls button[aria-pressed="true"] { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+#language-controls button:focus-visible { outline: 3px solid white; outline-offset: 2px; }
+#vid { position: fixed; inset: var(--toolbar-height) 0 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 20; }
 #vid video { width: 100%; height: 100%; object-fit: contain; background: #000; }
-#vid button { position: absolute; right: max(18px, env(safe-area-inset-right, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); font: 900 18px 'Nunito', sans-serif; color: var(--ink); background: var(--cream);
+#video-caption { position: absolute; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #161127; pointer-events: none; overflow: hidden; text-align: center; }
+#video-caption span { display: block; width: 100%; font-weight: 800; line-height: 1.2; }
+#vid button { position: absolute; right: max(18px, env(safe-area-inset-right, 0px)); top: 18px; font: 900 18px 'Nunito', sans-serif; color: var(--ink); background: var(--cream);
   border: 4px solid var(--ink); border-radius: 16px; padding: 10px 20px 10px 22px; box-shadow: 0 6px 0 var(--ink); cursor: pointer; opacity: 0; transition: opacity .4s; }
 #vid button.on { opacity: .92; }
 #vid button:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--ink); }
@@ -21,15 +45,38 @@ body { margin: 0; background: var(--night); overflow: hidden; touch-action: none
 #rotate .phone { width: 64px; height: 108px; border: 6px solid var(--gold); border-radius: 14px; animation: turn 2.2s ease-in-out infinite; }
 @keyframes turn { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
 @media (orientation: portrait) and (max-width: 900px) { #rotate { display: flex; } }
-#boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; color: #b9a4ff; font: 800 20px 'Nunito', sans-serif; z-index: 1; }
+#boot { position: fixed; inset: var(--toolbar-height) 0 0; display: flex; align-items: center; justify-content: center; color: #b9a4ff; font: 800 20px 'Nunito', sans-serif; z-index: 1; }
 @media (prefers-reduced-motion: reduce) { #rotate .phone { animation: none; transform: rotate(-90deg); } }
-</style>
-<div id="boot">Ачаалж байна…</div>
+</style></head><body>
+<section id="language-start" aria-labelledby="language-heading" aria-describedby="language-subtitle">
+  <div class="language-card">
+    <img class="language-mascot" src="assets/pt/nyagtaa_happy.webp" alt="" width="108" height="112">
+    <p class="language-brand"><span lang="mn">НЯГТАА</span> · <span lang="en">NYAGTAA</span></p>
+    <h1 id="language-heading" lang="mn">Хэлээ сонгоорой</h1>
+    <p id="language-subtitle" class="language-subtitle" lang="en">Choose your language</p>
+    <div class="language-options">
+      <button type="button" data-start-language="mn" lang="mn">
+        <span class="language-code" aria-hidden="true">MN</span><span class="language-name">Монгол</span><span class="language-action">Монгол хэлээр тоглох</span>
+      </button>
+      <button type="button" data-start-language="en" lang="en">
+        <span class="language-code" aria-hidden="true">EN</span><span class="language-name">English</span><span class="language-action">Play in English</span>
+      </button>
+    </div>
+  </div>
+</section>
+<div id="language-controls" role="group" aria-label="Хэл" hidden>
+  <span data-i18n="Хэл">Хэл</span>
+  <button type="button" data-language="mn" lang="mn" aria-label="Монгол" aria-pressed="true">MN</button>
+  <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+</div>
+<div id="boot" data-i18n="Ачаалж байна…" hidden>Ачаалж байна…</div>
 <div id="game"></div>
-<div id="vid" hidden><video id="vv" playsinline webkit-playsinline preload="auto"></video><button id="skip" type="button">Алгасах ▸▸</button></div>
-<div id="rotate"><div class="phone"></div><div>Утсаа хэвтээ болгоод тоглоорой</div></div>
+<div id="vid" hidden><video id="vv" playsinline webkit-playsinline preload="auto"></video><div id="video-caption" lang="en" hidden><span></span></div><button id="skip" type="button" data-i18n="Алгасах ▸▸">Алгасах ▸▸</button></div>
+<div id="rotate" hidden><div class="phone"></div><div data-i18n="Утсаа хэвтээ болгоод тоглоорой">Утсаа хэвтээ болгоод тоглоорой</div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
 <script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/video-captions.js"></script>
 <script src="js/core.js"></script>
 <script src="js/world.js"></script>
 <script src="js/scenes_menu.js"></script>
@@ -38,4 +85,4 @@ body { margin: 0; background: var(--night); overflow: hidden; touch-action: none
 <script src="js/scenes_end.js"></script>
 <script src="js/main.js"></script>
 
-</head></html>
+</body></html>

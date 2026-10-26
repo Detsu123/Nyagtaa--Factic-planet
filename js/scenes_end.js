@@ -189,7 +189,7 @@ class EndingScene extends Phaser.Scene {
     // seven methods
     c.add(paper(this, 1300, 560, 960, 700, { lines: 60, tape: 0x9fe8c8 })); c.add(txt(this, 1300, 270, 'Нягтлах 7 арга', 46, COL.inkS));
     const used = new Set(Object.keys(G.found).map(id => CLUES[id].n));
-    SEVEN.forEach((s, i) => { const y = 350 + i * 66; c.add(this.add.image(880, y, used.has(i + 1) ? 'check_ic' : 'lens_ic').setScale(0.4)); c.add(txt(this, 925, y, `${i + 1}. ${s}`, 32, COL.inkS, { ox: 0, weight: '800' })); });
+    SEVEN.forEach((s, i) => { const y = 350 + i * 66; c.add(this.add.image(880, y, used.has(i + 1) ? 'check_ic' : 'lens_ic').setScale(0.4)); c.add(txt(this, 925, y, `${i + 1}. ${s}`, 32, COL.inkS, { ox: 0, weight: '800', maxWidth: 800 })); });
     c.add(txt(this, 1300, 840, '#7нягталж1түгээ', 40, '#ff6b7a'));
     c.add(button(this, 1060, 980, 'FactCheck.mn', () => openLink('https://factcheck.mn'), { w: 380, h: 96, size: 38, fill: 0x8fd3ff }));
     c.add(button(this, 1500, 980, 'Дахин тоглох', () => { SND.play(null); fadeTo(this, 'Title'); }, { w: 380, h: 96, size: 38, fill: 0xffc94a }));

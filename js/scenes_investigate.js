@@ -191,8 +191,10 @@ class InvestigateScene extends Phaser.Scene {
     this.yaar = true; this.hud.bowAlarm(true); this.hud.setSpeed(true); SND.sfx('alarm', 0.35);
     const l = L[Math.random() < 0.5 ? 'yaar1' : 'yaar2']; SND.voice(l === L.yaar1 ? 'yaar1' : 'yaar2');
     const c = this.add.container(GW / 2, 250).setScrollFactor(0).setDepth(9000); const pt = this.add.image(-330, 30, 'pt_dad_angry').setScale(0.38);
-    const t = txt(this, 60, 0, l.mn, 42, '#c0262d', { wrap: 640 }); const bw = t.width + 80, bh = t.height + 50; const g = this.add.graphics();
-    g.fillStyle(COL.ink, 1).fillRoundedRect(60 - bw / 2, -bh / 2 + 8, bw, bh, 30); g.fillStyle(0xffffff, 1).fillRoundedRect(60 - bw / 2, -bh / 2, bw, bh, 30); g.lineStyle(6, COL.ink).strokeRoundedRect(60 - bw / 2, -bh / 2, bw, bh, 30);
+    const t = txt(this, 60, 0, l.mn, 42, '#c0262d', { wrap: 640 }); const g = this.add.graphics();
+    const drawBubble = () => { const bw = t.width + 80, bh = t.height + 50; g.clear();
+      g.fillStyle(COL.ink, 1).fillRoundedRect(60 - bw / 2, -bh / 2 + 8, bw, bh, 30); g.fillStyle(0xffffff, 1).fillRoundedRect(60 - bw / 2, -bh / 2, bw, bh, 30); g.lineStyle(6, COL.ink).strokeRoundedRect(60 - bw / 2, -bh / 2, bw, bh, 30); };
+    drawBubble(); t.on('localized', drawBubble);
     c.add([g, t, pt]); c.setScale(0.3); this.tweens.add({ targets: c, scale: 1, duration: 260, ease: 'Back.Out' }); this.tweens.add({ targets: c, angle: 2, duration: 70, yoyo: true, repeat: 8 });
     this.tweens.add({ targets: c, alpha: 0, y: 200, delay: 2400, duration: 400, onComplete: () => c.destroy() });
     toast(this, 'Цаг 2 дахин хурдан! Зангиагаа зас!', { y: 470, fill: 0xffd0d6, hold: 2200 });
@@ -284,19 +286,19 @@ function drawZoom(s, id) {
       c.fillStyle = '#5a3a22'; c.fillRect(0, 0, W, H); for (let i = 0; i < 14; i++) { c.fillStyle = i % 2 ? '#7a5234' : '#6b4629'; c.fillRect(0, i * 60, W, 60); }
       c.save(); c.translate(W / 2, H / 2); c.rotate(-0.02); c.fillStyle = 'rgba(0,0,0,0.3)'; c.fillRect(-370, -390, 760, 800); c.fillStyle = '#fff6df'; c.fillRect(-380, -400, 760, 800);
       c.fillStyle = '#e04a5a'; c.beginPath(); c.arc(0, -385, 16, 0, 6.28); c.fill();
-      c.textAlign = 'center'; c.fillStyle = '#c0262d'; c.font = `900 ${sharp ? 92 : 86}px Nunito`; c.fillText('АЙМШИГ!!!', 0, -290);
-      c.fillStyle = '#3a2a1a'; c.font = '900 50px Nunito'; c.fillText('АВАРГА БААВГАЙ', 0, -210); c.fillText('БҮГДИЙГ ИДНЭ!!! ЗУГТ!', 0, -150);
+      c.textAlign = 'center'; c.fillStyle = '#c0262d'; c.font = `900 ${sharp ? 92 : 86}px Nunito`; c.fillText(I18N.text('АЙМШИГ!!!'), 0, -290);
+      c.fillStyle = '#3a2a1a'; c.font = '900 50px Nunito'; c.fillText(I18N.text('АВАРГА БААВГАЙ'), 0, -210); c.fillText(I18N.text('БҮГДИЙГ ИДНЭ!!! ЗУГТ!'), 0, -150, 660);
       if (sharp) { c.strokeStyle = '#ff4d6d'; c.lineWidth = 6; c.setLineDash([12, 8]); c.strokeRect(-330, -380, 660, 250); c.setLineDash([]); }
       c.fillStyle = '#9a8a76'; for (let i = 0; i < 7; i++) c.fillRect(-300, -80 + i * 42, 600 - (i % 3) * 90, 16);
       // the stamp
       c.save(); c.translate(250, 270); c.rotate(-0.18); c.strokeStyle = '#d23a3a'; c.lineWidth = 9; c.beginPath(); c.arc(0, 0, 92, 0, 6.28); c.stroke(); c.lineWidth = 3; c.beginPath(); c.arc(0, 0, 74, 0, 6.28); c.stroke();
-      c.fillStyle = '#d23a3a'; c.font = `900 ${sharp ? 34 : 30}px Nunito`; c.fillText('НАРЛААГ', 0, -2); c.font = '800 22px Nunito'; c.fillText('ХАРУУЛ', 0, 34);
-      if (sharp) { c.fillStyle = '#d23a3a'; c.font = '900 24px Nunito'; c.fillText('★', 0, -44); }
+      c.fillStyle = '#d23a3a'; c.font = `900 ${sharp ? 34 : 30}px Nunito`; c.fillText(I18N.text('НАРЛААГ'), 0, -2); c.font = '800 22px Nunito'; c.fillText(I18N.text('ХАРУУЛ'), 0, 34);
+      if (sharp) { c.fillStyle = '#d23a3a'; c.font = '900 24px Nunito'; c.fillText(I18N.text('★'), 0, -44); }
       c.restore(); c.restore();
       if (sharp && id === 'c2') { // official stamp for comparison
         c.save(); c.translate(150, 680); c.fillStyle = '#fffdf6'; c.fillRect(-120, -110, 240, 220); c.strokeStyle = '#2a1f5e'; c.lineWidth = 5; c.strokeRect(-120, -110, 240, 220);
-        c.strokeStyle = '#2f6fd6'; c.lineWidth = 8; c.beginPath(); c.arc(0, -10, 66, 0, 6.28); c.stroke(); c.fillStyle = '#2f6fd6'; c.textAlign = 'center'; c.font = '900 26px Nunito'; c.fillText('НАРЛАГ', 0, -6); c.font = '800 18px Nunito'; c.fillText('ХАРУУЛ', 0, 22);
-        c.fillStyle = '#2a1f5e'; c.font = '900 22px Nunito'; c.fillText('Жинхэнэ тамга', 0, 92); c.restore(); }
+        c.strokeStyle = '#2f6fd6'; c.lineWidth = 8; c.beginPath(); c.arc(0, -10, 66, 0, 6.28); c.stroke(); c.fillStyle = '#2f6fd6'; c.textAlign = 'center'; c.font = '900 26px Nunito'; c.fillText(I18N.text('НАРЛАГ'), 0, -6); c.font = '800 18px Nunito'; c.fillText(I18N.text('ХАРУУЛ'), 0, 22);
+        c.fillStyle = '#2a1f5e'; c.font = '900 22px Nunito'; c.fillText(I18N.text('Жинхэнэ тамга'), 0, 92); c.restore(); }
     } else if (id === 'c7') {
       const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#c9a77a'); g.addColorStop(1, '#a8845a'); c.fillStyle = g; c.fillRect(0, 0, W, H);
       for (let i = 0; i < 400; i++) { c.fillStyle = `rgba(${90 + Math.random() * 60},${60 + Math.random() * 40},30,${0.15 + Math.random() * 0.2})`; c.beginPath(); c.arc(Math.random() * W, Math.random() * H, 2 + Math.random() * 6, 0, 6.28); c.fill(); }
@@ -305,7 +307,7 @@ function drawZoom(s, id) {
       if (sharp) { c.save(); c.translate(1010, 120); c.fillStyle = '#fffdf6'; c.fillRect(-150, -90, 300, 200); c.strokeStyle = INK; c.lineWidth = 5; c.strokeRect(-150, -90, 300, 200);
         c.fillStyle = '#5a3a22'; c.beginPath(); c.ellipse(-60, 20, 34, 40, 0, 0, 6.28); c.fill(); [[-92, -34], [-72, -50], [-48, -52], [-26, -40]].forEach(([x, y]) => { c.beginPath(); c.arc(x, y, 12, 0, 6.28); c.fill(); });
         c.strokeStyle = '#5a3a22'; c.lineWidth = 14; c.lineCap = 'round'; c.beginPath(); c.arc(70, 34, 34, Math.PI * 1.05, Math.PI * 1.95, true); c.stroke();
-        c.fillStyle = INK; c.font = '900 20px Nunito'; c.textAlign = 'center'; c.fillText('Баавгай', -60, 92); c.fillText('Морь', 70, 92); c.restore(); }
+        c.fillStyle = INK; c.font = '900 20px Nunito'; c.textAlign = 'center'; c.fillText(I18N.text('Баавгай'), -60, 92); c.fillText(I18N.text('Морь'), 70, 92); c.restore(); }
     } else if (id === 'c8') {
       c.fillStyle = '#8a5a3a'; c.fillRect(0, 0, W, H); for (let i = 0; i < 40; i++) { c.strokeStyle = `rgba(60,36,20,${0.3 + Math.random() * 0.3})`; c.lineWidth = 4 + Math.random() * 8; c.beginPath(); const x = Math.random() * W; c.moveTo(x, 0); c.bezierCurveTo(x + 30, H / 3, x - 30, H * 2 / 3, x + 10, H); c.stroke(); }
       for (let k = 0; k < 4; k++) { c.save(); c.translate(500 + k * 56, 260); c.rotate(0.35); c.fillStyle = 'rgba(40,24,12,0.9)'; c.fillRect(-12, 0, 24, 300);
@@ -316,9 +318,9 @@ function drawZoom(s, id) {
       c.lineCap = 'round'; c.strokeStyle = INK; c.lineWidth = 70; c.beginPath(); c.moveTo(0, 520); c.quadraticCurveTo(600, 380, 1200, 460); c.stroke(); c.strokeStyle = '#8a5a3a'; c.lineWidth = 50; c.beginPath(); c.moveTo(0, 520); c.quadraticCurveTo(600, 380, 1200, 460); c.stroke();
       c.strokeStyle = '#1c1426'; for (let i = 0; i < 120; i++) { const x = 600 + (Math.random() - 0.5) * 170, y = 400 + Math.random() * 60; c.lineWidth = sharp ? 5 : 7; c.beginPath(); c.moveTo(x, y);
         if (sharp) { for (let j = 0; j < 6; j++) c.arc(x + (j % 2 ? 6 : -6), y + 10 + j * 12, 7, 0, Math.PI, j % 2 === 0); } else c.lineTo(x + 6, y + 70); c.stroke(); }
-      if (sharp) { c.save(); c.translate(1000, 150); c.fillStyle = '#fffdf6'; c.fillRect(-140, -90, 280, 180); c.strokeStyle = INK; c.lineWidth = 5; c.strokeRect(-140, -90, 280, 180); c.fillStyle = INK; c.textAlign = 'center'; c.font = '900 30px Nunito'; c.fillText('Буржгар', 0, -10); c.fillText('ямааны ноос', 0, 34); c.restore(); }
+      if (sharp) { c.save(); c.translate(1000, 150); c.fillStyle = '#fffdf6'; c.fillRect(-140, -90, 280, 180); c.strokeStyle = INK; c.lineWidth = 5; c.strokeRect(-140, -90, 280, 180); c.fillStyle = INK; c.textAlign = 'center'; c.font = '900 30px Nunito'; c.fillText(I18N.text('Буржгар'), 0, -10); c.fillText(I18N.text('ямааны ноос'), 0, 34); c.restore(); }
     }
   };
-  canvasTex(s, k + '_d', W, H, (c) => paint(c, true));
-  canvasTex(s, k + '_b', W / 6, H / 6, (c) => { c.scale(1 / 6, 1 / 6); paint(c, false); c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = 'rgba(30,18,60,0.42)'; c.fillRect(0, 0, W, H); });
+  canvasTex(s, k + '_d', W, H, (c) => paint(c, true), true);
+  canvasTex(s, k + '_b', W / 6, H / 6, (c) => { c.scale(1 / 6, 1 / 6); paint(c, false); c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = 'rgba(30,18,60,0.42)'; c.fillRect(0, 0, W, H); }, true);
 }

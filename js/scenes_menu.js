@@ -1,5 +1,15 @@
 // Boot (procedural textures) · Preload · Title · Tutorial
-function canvasTex(scene, key, w, h, fn) { if (scene.textures.exists(key)) scene.textures.remove(key); const t = scene.textures.createCanvas(key, w, h); const c = t.getContext(); fn(c, w, h); t.refresh(); return t; }
+function canvasTex(scene, key, w, h, fn, localized = false) {
+  if (scene.textures.exists(key)) scene.textures.remove(key);
+  const t = scene.textures.createCanvas(key, w, h), c = t.getContext();
+  const redraw = () => {
+    if (!scene.textures.exists(key) || scene.textures.get(key) !== t) return;
+    c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, w, h);
+    fn(c, w, h); c.restore(); t.refresh();
+  };
+  redraw(); if (localized) I18N.canvases.set(key, redraw);
+  return t;
+}
 const INK = '#2a1f5e';
 function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
 
@@ -49,9 +59,9 @@ class BootScene extends Phaser.Scene {
       c.fillStyle = '#7fd36a'; [[205, 34], [270, 88], [60, 100]].forEach(([x, y]) => { c.beginPath(); c.ellipse(x, y, 20, 10, 0.6, 0, 6.28); c.fill(); c.strokeStyle = INK; c.lineWidth = 4; c.stroke(); });
       c.strokeStyle = '#1c1426'; c.lineWidth = 4; for (let i = 0; i < 26; i++) { const x = 150 + Math.random() * 46, y = 72 + Math.random() * 30; c.beginPath(); c.moveTo(x, y); c.bezierCurveTo(x + 8, y + 10, x - 6, y + 18, x + 4, y + 28); c.stroke(); } });
     canvasTex(S, 'sign', 220, 210, (c) => { c.lineJoin = 'round'; c.fillStyle = '#a8744f'; c.strokeStyle = INK; c.lineWidth = 7; rr(c, 98, 70, 24, 136, 8); c.fill(); c.stroke();
-      c.fillStyle = '#f2c48d'; c.beginPath(); c.moveTo(14, 26); c.lineTo(170, 26); c.lineTo(206, 62); c.lineTo(170, 98); c.lineTo(14, 98); c.closePath(); c.fill(); c.stroke(); c.fillStyle = INK; c.font = '900 34px Nunito'; c.textAlign = 'center'; c.fillText('ОЙ', 96, 76); });
+      c.fillStyle = '#f2c48d'; c.beginPath(); c.moveTo(14, 26); c.lineTo(170, 26); c.lineTo(206, 62); c.lineTo(170, 98); c.lineTo(14, 98); c.closePath(); c.fill(); c.stroke(); c.fillStyle = INK; c.font = '900 34px Nunito'; c.textAlign = 'center'; c.fillText(I18N.text('ОЙ'), 96, 76, 142); }, true);
     canvasTex(S, 'sign2', 220, 210, (c) => { c.lineJoin = 'round'; c.fillStyle = '#a8744f'; c.strokeStyle = INK; c.lineWidth = 7; rr(c, 98, 70, 24, 136, 8); c.fill(); c.stroke();
-      c.fillStyle = '#f2c48d'; c.beginPath(); c.moveTo(206, 26); c.lineTo(50, 26); c.lineTo(14, 62); c.lineTo(50, 98); c.lineTo(206, 98); c.closePath(); c.fill(); c.stroke(); c.fillStyle = INK; c.font = '900 30px Nunito'; c.textAlign = 'center'; c.fillText('ТОСГОН', 124, 74); });
+      c.fillStyle = '#f2c48d'; c.beginPath(); c.moveTo(206, 26); c.lineTo(50, 26); c.lineTo(14, 62); c.lineTo(50, 98); c.lineTo(206, 98); c.closePath(); c.fill(); c.stroke(); c.fillStyle = INK; c.font = '900 30px Nunito'; c.textAlign = 'center'; c.fillText(I18N.text('ТОСГОН'), 124, 74, 142); }, true);
     canvasTex(S, 'ball', 80, 80, (c) => { const g = c.createRadialGradient(30, 28, 4, 40, 40, 36); g.addColorStop(0, '#fff'); g.addColorStop(0.3, '#ff8fa2'); g.addColorStop(1, '#e8466a'); c.fillStyle = INK; c.beginPath(); c.arc(40, 42, 36, 0, 6.28); c.fill(); c.fillStyle = g; c.beginPath(); c.arc(40, 40, 33, 0, 6.28); c.fill(); });
     this.scene.start('Preload');
   }
@@ -149,10 +159,17 @@ class TutorialScene extends Phaser.Scene {
     let left = 3; this.bubbles = [];
     this.dlg.say(['t2'], () => {
       B.forEach(([s, label, x, y, a], i) => {
-        const c = this.add.container(x, y).setDepth(600).setScale(0).setAngle(a); const t = txt(this, 0, -6, s, 44, '#c0262d'); const bw = t.width + 90, bh = t.height + 70;
-        const g = this.add.graphics(); g.fillStyle(COL.ink, 1).fillRoundedRect(-bw / 2, -bh / 2 + 10, bw, bh, 40); g.fillStyle(0xffffff, 1).fillRoundedRect(-bw / 2, -bh / 2, bw, bh, 40);
-        g.fillTriangle(-30, bh / 2 - 4, 10, bh / 2 - 4, -46, bh / 2 + 46); g.lineStyle(7, COL.ink).strokeRoundedRect(-bw / 2, -bh / 2, bw, bh, 40);
-        g.lineBetween(-30, bh / 2, -46, bh / 2 + 46); g.lineBetween(10, bh / 2, -46, bh / 2 + 46);
+        const c = this.add.container(x, y).setDepth(600).setScale(0).setAngle(a); const t = txt(this, 0, -6, s, 44, '#c0262d');
+        let bw, bh, stamp; const g = this.add.graphics();
+        const drawBubble = () => {
+          bw = t.width + 90; bh = t.height + 70; g.clear();
+          g.fillStyle(COL.ink, 1).fillRoundedRect(-bw / 2, -bh / 2 + 10, bw, bh, 40); g.fillStyle(0xffffff, 1).fillRoundedRect(-bw / 2, -bh / 2, bw, bh, 40);
+          g.fillTriangle(-30, bh / 2 - 4, 10, bh / 2 - 4, -46, bh / 2 + 46); g.lineStyle(7, COL.ink).strokeRoundedRect(-bw / 2, -bh / 2, bw, bh, 40);
+          g.lineBetween(-30, bh / 2, -46, bh / 2 + 46); g.lineBetween(10, bh / 2, -46, bh / 2 + 46);
+          c.setSize(bw, bh); if (c.input) { c.input.hitArea.width = bw; c.input.hitArea.height = bh; }
+          if (stamp) stamp.y = y + bh / 2 + 40;
+        };
+        drawBubble(); t.on('localized', drawBubble);
         c.add([g, t]); c.setSize(bw, bh).setInteractive({ useHandCursor: true });
         this.tweens.add({ targets: c, scale: 1, duration: 420, delay: i * 260, ease: 'Back.Out', onStart: () => SND.sfx('pop', 0.6) });
         this.tweens.add({ targets: c, angle: a + 3, duration: 160, yoyo: true, repeat: -1, delay: i * 90 });
@@ -160,8 +177,10 @@ class TutorialScene extends Phaser.Scene {
         this.tweens.add({ targets: lens, x: x + 90, y: y + 60, duration: 600, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
         c.on('pointerdown', () => { if (c.done) return; c.done = true; lens.destroy(); SND.sfx('sparkle', 0.7); this.tweens.killTweensOf(c); c.setAngle(a);
           burst(this, x, y, 20, [0xffe27a, 0xffffff], 700, { sf: 0 });
-          const st = this.add.container(x, y + bh / 2 + 40).setDepth(620).setScale(2).setAlpha(0).setAngle(-8);
-          const sg = this.add.graphics(); const lt = txt(this, 0, 0, label, 34, '#ffffff'); const lw = lt.width + 50; sg.fillStyle(0xff6b7a, 1).fillRoundedRect(-lw / 2, -30, lw, 60, 14); sg.lineStyle(6, COL.ink).strokeRoundedRect(-lw / 2, -30, lw, 60, 14);
+          const st = stamp = this.add.container(x, y + bh / 2 + 40).setDepth(620).setScale(2).setAlpha(0).setAngle(-8);
+          const sg = this.add.graphics(); const lt = txt(this, 0, 0, label, 34, '#ffffff');
+          const drawStamp = () => { const lw = lt.width + 50; sg.clear(); sg.fillStyle(0xff6b7a, 1).fillRoundedRect(-lw / 2, -30, lw, 60, 14); sg.lineStyle(6, COL.ink).strokeRoundedRect(-lw / 2, -30, lw, 60, 14); };
+          drawStamp(); lt.on('localized', drawStamp);
           st.add([sg, lt]); this.tweens.add({ targets: st, scale: 1, alpha: 1, duration: 260, ease: 'Back.Out' }); SND.sfx('drop', 0.5);
           this.tweens.add({ targets: t, alpha: 0.55, duration: 200 }); this.bubbles.push(st);
           if (--left === 0) this.time.delayedCall(1100, () => { [...this.bubbles, ...this.children.list.filter(o => o.depth === 600)].forEach(o => this.tweens.add({ targets: o, alpha: 0, scale: 0.6, duration: 300, onComplete: () => o.destroy() })); this.step3(); }); });
