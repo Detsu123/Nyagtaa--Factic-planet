@@ -95,7 +95,7 @@ class PreloadScene extends Phaser.Scene {
   create() { SND.bind(this); this.scene.start('Title'); }
 }
 const PORTRAITS = ['nyagtaa_happy', 'nyagtaa_thinking', 'nyagtaa_notes', 'nyagtaa_curious', 'nyagtaa_surprised', 'nyagtaa_excited', 'nyagtaa_wink', 'nyagtaa_confused', 'nyagtaa_reading', 'nyagtaa_laugh', 'nyagtaa_main',
-  'dad_angry', 'dad_shocked', 'dad_main', 'dad_thankful', 'dad_embarrassed', 'gamer_hyped', 'gamer_main', 'girl_laughing', 'girl_main', 'girl_excited',
+  'dad_angry', 'dad_shocked', 'dad_main', 'dad_thankful', 'dad_embarrassed', 'gamer_main', 'girl_laughing', 'girl_main', 'girl_excited',
   'khuurmag_main', 'khuurmag_evillaugh', 'khuurmag_sneaky', 'khuurmag_scared', 'khuurmag_melting', 'khuurmag_whispering', 'mom_p', 'hunter_p', 'wood1_p', 'wood2_p'];
 const SFX = ['tap', 'nope', 'blip', 'page', 'pop', 'whoosh', 'chop', 'miss', 'stack', 'sparkle', 'good', 'bad', 'tick', 'alarm', 'badge', 'rumble', 'coin', 'pick', 'drop', 'calm', 'fanfare', 'step'];
 

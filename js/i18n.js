@@ -76,7 +76,7 @@ const EN_TEXT = {
   'Модчид: "Бид тайван ажиллаж байна. Нохой ч хуцаагүй."': 'Woodcutters: "We worked in peace. The dogs did not even bark."',
   'Олон талаас нь сонс': 'Hear different sides',
   'Баримт уу, бодол уу?': 'Fact or opinion?', 'Хэр том байсныг асуух': 'Ask how big it was',
-  'Аав: "Миний бодлоор маш том, өлсч байгаа байх!"': 'Dad: "I think it is huge and probably hungry!"',
+  'Аав: "Миний бодлоор маш том, өлсөж байгаа байх!"': 'Dad: "I think it is huge and probably hungry!"',
   'Баримт ба бодлыг ялга': 'Separate facts from opinions',
   'Газрын мөр': 'Tracks', 'Мөрийг томруулж харах': 'Magnify the tracks',
   'Мөр нь U хэлбэртэй, морины туурайных.': 'The U-shaped tracks are horse hoofprints.',

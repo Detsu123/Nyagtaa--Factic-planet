@@ -1,0 +1,424 @@
+{
+  "language": "mn-MN",
+  "status": "script-ready-audio-not-generated",
+  "source": "js/data.js: L[*].mn",
+  "sampleIds": [
+    "t1",
+    "c1a",
+    "m1"
+  ],
+  "cast": {
+    "nyagtaa": {
+      "name": "Нягтаа",
+      "direction": "Залуу, цовоо, сониуч өнгө. Зааврыг тод, тайван уншина. Нэг дүрийн өнгийг бүх өгүүлбэрт хадгална."
+    },
+    "mom": {
+      "name": "Ээж Сарнай",
+      "direction": "Дулаан, халамжтай эмэгтэй өнгө. Эхэндээ бага зэрэг санаа зовсон, дараа нь баярласан."
+    },
+    "dad": {
+      "name": "Аав Батаа",
+      "direction": "Насанд хүрсэн эрэгтэй, бүдүүндүү өнгө. Сандарсан, яаруулсан; үг тод сонсогдохоор уншина."
+    },
+    "hunter": {
+      "name": "Анчин Мөнх",
+      "direction": "Насанд хүрсэн эрэгтэй, тогтуун бөгөөд итгэлтэй өнгө."
+    },
+    "wood": {
+      "name": "Модчид",
+      "direction": "Насанд хүрсэн эрэгтэй, энгийн тайван өнгө."
+    },
+    "narrator": {
+      "name": "Өгүүлэгч",
+      "direction": "Тайван, тод өгүүлэх өнгө. Төгсгөлийн өгүүлбэрт бага зэрэг нууцлаг хүлээлт төрүүлнэ."
+    },
+    "tumur": {
+      "name": "Төмөр",
+      "direction": "Хүүгийн цовоо, тоглох хүсэлтэй өнгө."
+    },
+    "suvd": {
+      "name": "Сувд",
+      "direction": "Охины хөгжилтэй, инээмсэглэсэн өнгө."
+    }
+  },
+  "lines": [
+    {
+      "id": "t1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "happy",
+      "displayText": "Сайн уу! Намайг Нягтаа гэдэг. Худал ярьдаг сүүдэр Фактикийн биед орсныг гаднаас нь мэдэхгүй. Харин эзэмдүүлсэн Фактикийн үг, үйлдлээс нь таньж болно.",
+      "spokenText": "Сайн уу! Намайг Нягтаа гэдэг. Худал ярьдаг сүүдэр Фактикийн биед орсныг гаднаас нь мэдэхгүй. Харин эзэмдүүлсэн Фактикийн үг, үйлдлээс нь таньж болно.",
+      "targetFile": "assets/vo/t1.mp3"
+    },
+    {
+      "id": "t2",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "thinking",
+      "displayText": "Хэрвээ та ийм үг сонсвол сэрэмжлээрэй! Томруулдаг шилээрээ үг бүр дээр дарж, сайтар шалгаарай.",
+      "spokenText": "Хэрвээ та ийм үг сонсвол сэрэмжлээрэй! Томруулдаг шилээрээ үг бүр дээр дарж, сайтар шалгаарай.",
+      "targetFile": "assets/vo/t2.mp3"
+    },
+    {
+      "id": "t3",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "notes",
+      "displayText": "Би та нарт нууц аргаа танилцуулъя: Долоо нягталж, нэг түгээ! Эхлээд сэжүүр олж, цүнхэндээ хадгал. Дараа нь дүгнэж, шийдвэрээ гаргаарай.",
+      "spokenText": "Би та нарт нууц аргаа танилцуулъя: Долоо нягталж, нэг түгээ! Эхлээд сэжүүр олж, цүнхэндээ хадгал. Дараа нь дүгнэж, шийдвэрээ гаргаарай.",
+      "targetFile": "assets/vo/t3.mp3"
+    },
+    {
+      "id": "t4",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "curious",
+      "displayText": "Энэ бол цаг. Сэжүүр шалгах бүрт цаг зарцуулна. Бүх сэжүүрийг шалгах цаг байхгүй тул хамгийн хэрэгтэйг нь ухаалгаар сонгоорой!",
+      "spokenText": "Энэ бол цаг. Сэжүүр шалгах бүрт цаг зарцуулна. Бүх сэжүүрийг шалгах цаг байхгүй тул хамгийн хэрэгтэйг нь ухаалгаар сонгоорой!",
+      "targetFile": "assets/vo/t4.mp3"
+    },
+    {
+      "id": "t5",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "surprised",
+      "displayText": "Энэ бол Харанхуйн хэмжүүр. Фактикууд сандарч, яарч, түгших тусам дүүрнэ. Дүүрвэл Хуурмаг улам томорч, хүчтэй болно!",
+      "spokenText": "Энэ бол Харанхуйн хэмжүүр. Фактикууд сандарч, яарч, түгших тусам дүүрнэ. Дүүрвэл Хуурмаг улам томорч, хүчтэй болно!",
+      "targetFile": "assets/vo/t5.mp3"
+    },
+    {
+      "id": "t6",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "excited",
+      "displayText": "Энэ бол Гэрлийн туяа. Зөв алхам бүр гэрэл нэмнэ. Хэн нэгэн \"Яар! Хурдал!\" гэж хашгирвал эрвээхэй зангиагаа засаад тайвшраарай. Тэгээд ажлаа үргэлжлүүлээрэй!",
+      "spokenText": "Энэ бол Гэрлийн туяа. Зөв алхам бүр гэрэл нэмнэ. Хэн нэгэн \"Яар! Хурдал!\" гэж хашгирвал эрвээхэй зангиагаа засаад тайвшраарай. Тэгээд ажлаа үргэлжлүүлээрэй!",
+      "targetFile": "assets/vo/t6.mp3"
+    },
+    {
+      "id": "t7",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "wink",
+      "displayText": "За, бүгдээрээ эхлээд Нарлаг тосгон руу очицгооё!",
+      "spokenText": "За, бүгдээрээ эхлээд Нарлаг тосгон руу очицгооё!",
+      "targetFile": "assets/vo/t7.mp3"
+    },
+    {
+      "id": "m1",
+      "speaker": "mom",
+      "speakerName": "Ээж Сарнай",
+      "expression": "p",
+      "displayText": "Өө, Нягтаа, миний дүү! Сайн уу? Удахгүй өвөл болно. Бид түлээгээ бэлдэх гээд завгүй л байна.",
+      "spokenText": "Өө, Нягтаа, миний дүү! Сайн уу? Удахгүй өвөл болно. Бид түлээгээ бэлдэх гээд завгүй л байна.",
+      "targetFile": "assets/vo/m1.mp3"
+    },
+    {
+      "id": "m2",
+      "speaker": "mom",
+      "speakerName": "Ээж Сарнай",
+      "expression": "p",
+      "displayText": "Нөхөр маань ой руу мод бэлтгэхээр явсан ч бид хурааж амжихгүй байх. Чи жаахан тусалж чадах уу?",
+      "spokenText": "Нөхөр маань ой руу мод бэлтгэхээр явсан ч бид хурааж амжихгүй байх. Чи жаахан тусалж чадах уу?",
+      "targetFile": "assets/vo/m2.mp3"
+    },
+    {
+      "id": "n1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "excited",
+      "displayText": "Мэдээж! Би тусалъя, эгч ээ!",
+      "spokenText": "Мэдээж! Би тусалъя, эгч ээ!",
+      "targetFile": "assets/vo/n1.mp3"
+    },
+    {
+      "id": "m3",
+      "speaker": "mom",
+      "speakerName": "Ээж Сарнай",
+      "expression": "p",
+      "displayText": "Хөөх, ямар хурдан юм бэ! Ингэвэл өвөлдөө дулаахан байх нь. Баярлалаа, Нягтаа!",
+      "spokenText": "Хөөх, ямар хурдан юм бэ! Ингэвэл өвөлдөө дулаахан байх нь. Баярлалаа, Нягтаа!",
+      "targetFile": "assets/vo/m3.mp3"
+    },
+    {
+      "id": "s1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "thinking",
+      "displayText": "Бүгд айсандаа ажлаа орхилоо. Гэхдээ бид яаран шийдвэр гаргахаасаа өмнө нягтлах хэрэгтэй. Тосгон, ойн захыг шалгаж, сэжүүр хайцгаая!",
+      "spokenText": "Бүгд айсандаа ажлаа орхилоо. Гэхдээ бид яаран шийдвэр гаргахаасаа өмнө нягтлах хэрэгтэй. Тосгон, ойн захыг шалгаж, сэжүүр хайцгаая!",
+      "targetFile": "assets/vo/s1.mp3"
+    },
+    {
+      "id": "c1q",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "curious",
+      "displayText": "Батаа ах аа, та баавгайг яг хаана, хэзээ харсан бэ?",
+      "spokenText": "Батаа ах аа, та баавгайг яг хаана, хэзээ харсан бэ?",
+      "targetFile": "assets/vo/c1q.mp3"
+    },
+    {
+      "id": "c1a",
+      "speaker": "dad",
+      "speakerName": "Аав Батаа",
+      "expression": "angry",
+      "displayText": "Ойд! Нэг газар! Анчин Мөнх ч харсан гэсэн! Асуугаад байлгүй яар! Баавгай удахгүй ирэх нь!",
+      "spokenText": "Ойд! Нэг газар! Анчин Мөнх ч харсан гэсэн! Асуугаад байлгүй яар! Баавгай удахгүй ирэх нь!",
+      "targetFile": "assets/vo/c1a.mp3"
+    },
+    {
+      "id": "c1i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "thinking",
+      "displayText": "Хмм... Сэжигтэй л байна даа. Юу ч гэсэн анчин ахаас өөрөөс нь асуух хэрэгтэй.",
+      "spokenText": "Хмм... Сэжигтэй л байна даа. Юу ч гэсэн анчин ахаас өөрөөс нь асуух хэрэгтэй.",
+      "targetFile": "assets/vo/c1i.mp3"
+    },
+    {
+      "id": "c6q",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "curious",
+      "displayText": "Таны харсан баавгай тэгээд хэр том байсан бэ?",
+      "spokenText": "Таны харсан баавгай тэгээд хэр том байсан бэ?",
+      "targetFile": "assets/vo/c6q.mp3"
+    },
+    {
+      "id": "c6a",
+      "speaker": "dad",
+      "speakerName": "Аав Батаа",
+      "expression": "shocked",
+      "displayText": "Миний бодлоор маш том, өлсөж байгаа байх! Ийм л байх даа!",
+      "spokenText": "Миний бодлоор маш том, өлсөж байгаа байх! Ийм л байх даа!",
+      "targetFile": "assets/vo/c6a.mp3"
+    },
+    {
+      "id": "c6i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "notes",
+      "displayText": "Хмм... Ах яг тодорхой зүйл хэлсэнгүй. Сэжигтэй л байна даа.",
+      "spokenText": "Хмм... Ах яг тодорхой зүйл хэлсэнгүй. Сэжигтэй л байна даа.",
+      "targetFile": "assets/vo/c6i.mp3"
+    },
+    {
+      "id": "c3i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "surprised",
+      "displayText": "Анхаарлын тэмдэг дэндүү их, айлгасан үгс... Энэ гарчгийг биднийг бодох завдалгүй сандаргах гэж зориуд бичсэн байна.",
+      "spokenText": "Анхаарлын тэмдэг дэндүү их, айлгасан үгс... Энэ гарчгийг биднийг бодох завдалгүй сандаргах гэж зориуд бичсэн байна.",
+      "targetFile": "assets/vo/c3i.mp3"
+    },
+    {
+      "id": "c2i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "surprised",
+      "displayText": "Манай тосгоны нэр НАРЛАГ. Харин тамга дээр НАРЛААГ гэж байна. Албан ёсны тамгыг дуурайжээ!",
+      "spokenText": "Манай тосгоны нэр НАРЛАГ. Харин тамга дээр НАРЛААГ гэж байна. Албан ёсны тамгыг дуурайжээ!",
+      "targetFile": "assets/vo/c2i.mp3"
+    },
+    {
+      "id": "c4q",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "curious",
+      "displayText": "Мөнх ах аа, та баавгай харсан гэж үнэн үү?",
+      "spokenText": "Мөнх ах аа, та баавгай харсан гэж үнэн үү?",
+      "targetFile": "assets/vo/c4q.mp3"
+    },
+    {
+      "id": "c4a",
+      "speaker": "hunter",
+      "speakerName": "Анчин Мөнх",
+      "expression": "p",
+      "displayText": "Би тэгж хэлээгүй. Өглөөнөөс ойд яваад баавгайн мөр ч хараагүй.",
+      "spokenText": "Би тэгж хэлээгүй. Өглөөнөөс ойд яваад баавгайн мөр ч хараагүй.",
+      "targetFile": "assets/vo/c4a.mp3"
+    },
+    {
+      "id": "c4i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "excited",
+      "displayText": "Аав анчинг харсан гэж хэлсэн. Харин анчин өөрөө үгүйсгэлээ! Энэ бол чухал нотолгоо.",
+      "spokenText": "Аав анчинг харсан гэж хэлсэн. Харин анчин өөрөө үгүйсгэлээ! Энэ бол чухал нотолгоо.",
+      "targetFile": "assets/vo/c4i.mp3"
+    },
+    {
+      "id": "c5q",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "curious",
+      "displayText": "Та нар ойн захад ажиллаж байна. Баавгай харсан уу?",
+      "spokenText": "Та нар ойн захад ажиллаж байна. Баавгай харсан уу?",
+      "targetFile": "assets/vo/c5q.mp3"
+    },
+    {
+      "id": "c5a",
+      "speaker": "wood",
+      "speakerName": "Модчид",
+      "expression": "p",
+      "displayText": "Бид тайван ажиллаж байна. Нохой ч хуцаагүй.",
+      "spokenText": "Бид тайван ажиллаж байна. Нохой ч хуцаагүй.",
+      "targetFile": "assets/vo/c5a.mp3"
+    },
+    {
+      "id": "c5i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "notes",
+      "displayText": "Ойн дэргэд байгаа хүмүүс юу ч хараагүй. Олон талаас нь сонсох хэрэгтэй юм байна.",
+      "spokenText": "Ойн дэргэд байгаа хүмүүс юу ч хараагүй. Олон талаас нь сонсох хэрэгтэй юм байна.",
+      "targetFile": "assets/vo/c5i.mp3"
+    },
+    {
+      "id": "c7i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "thinking",
+      "displayText": "Энэ мөр U хэлбэртэй, хумсны ором алга. Баавгайных биш, мориных байна!",
+      "spokenText": "Энэ мөр латин юү үсгийн хэлбэртэй, хумсны ором алга. Баавгайных биш, мориных байна!",
+      "targetFile": "assets/vo/c7i.mp3"
+    },
+    {
+      "id": "c8i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "reading",
+      "displayText": "Сарвууны ором дээр хөвд ургачихаж. Энэ хэдэн жилийн өмнөх хуучин ором. Өнөөдрийн нотолгоо биш.",
+      "spokenText": "Сарвууны ором дээр хөвд ургачихаж. Энэ хэдэн жилийн өмнөх хуучин ором. Өнөөдрийн нотолгоо биш.",
+      "targetFile": "assets/vo/c8i.mp3"
+    },
+    {
+      "id": "c9i",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "laugh",
+      "displayText": "Хар үс... баавгайных уу? Үгүй ээ, буржгар ямааны ноос байна. Энэ сэжүүрт хууртагдаж цаг алдлаа!",
+      "spokenText": "Хар үс... баавгайных уу? Үгүй ээ, буржгар ямааны ноос байна. Энэ сэжүүрт хууртагдаж цаг алдлаа!",
+      "targetFile": "assets/vo/c9i.mp3"
+    },
+    {
+      "id": "yaar1",
+      "speaker": "dad",
+      "speakerName": "Аав Батаа",
+      "expression": "angry",
+      "displayText": "Яар! Яар! Шалгаад суух цаг алга!",
+      "spokenText": "Яар! Яар! Шалгаад суух цаг алга!",
+      "targetFile": "assets/vo/yaar1.mp3"
+    },
+    {
+      "id": "yaar2",
+      "speaker": "dad",
+      "speakerName": "Аав Батаа",
+      "expression": "angry",
+      "displayText": "Юу хийгээд байгаа юм бэ? Яар!",
+      "spokenText": "Юу хийгээд байгаа юм бэ? Яар!",
+      "targetFile": "assets/vo/yaar2.mp3"
+    },
+    {
+      "id": "calm",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "wink",
+      "displayText": "Амьсгаа аваад... тайван. Яарах биш, нягтлах!",
+      "spokenText": "Амьсгаа аваад... тайван. Яарах биш, нягтлах!",
+      "targetFile": "assets/vo/calm.mp3"
+    },
+    {
+      "id": "timeup",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "surprised",
+      "displayText": "Цаг дууслаа! Одоо цуглуулсан сэжүүрээрээ дүгнэх ёстой.",
+      "spokenText": "Цаг дууслаа! Одоо цуглуулсан сэжүүрээрээ дүгнэх ёстой.",
+      "targetFile": "assets/vo/timeup.mp3"
+    },
+    {
+      "id": "a1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "notes",
+      "displayText": "Хэн хэлсэн бэ? — Аав. Өөрөө харсан уу? — Хаана гэдгээ хэлж чадахгүй байна.",
+      "spokenText": "Хэн хэлсэн бэ? — Аав. Өөрөө харсан уу? — Хаана гэдгээ хэлж чадахгүй байна.",
+      "targetFile": "assets/vo/a1.mp3"
+    },
+    {
+      "id": "a2",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "thinking",
+      "displayText": "Анчин харсан гэж үү? — Анчин өөрөө үгүйсгэлээ. Тамга нь дуурайлал, мөр нь мориных...",
+      "spokenText": "Анчин харсан гэж үү? — Анчин өөрөө үгүйсгэлээ. Тамга нь дуурайлал, мөр нь мориных...",
+      "targetFile": "assets/vo/a2.mp3"
+    },
+    {
+      "id": "a0",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "thinking",
+      "displayText": "Сэжүүр цөөхөн байна... Гэхдээ байгаа нотолгоогоо сайн бодоод шийдье.",
+      "spokenText": "Сэжүүр цөөхөн байна... Гэхдээ байгаа нотолгоогоо сайн бодоод шийдье.",
+      "targetFile": "assets/vo/a0.mp3"
+    },
+    {
+      "id": "w1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "confused",
+      "displayText": "Би нягтлалгүйгээр итгэчихлээ... Шийтгэл биш, сурах боломж. Дахиад оролдъё!",
+      "spokenText": "Би нягтлалгүйгээр итгэчихлээ... Шийтгэл биш, сурах боломж. Дахиад оролдъё!",
+      "targetFile": "assets/vo/w1.mp3"
+    },
+    {
+      "id": "r1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "excited",
+      "displayText": "Мэдээ худал байлаа! Хуурмаг аавын үгэнд нуугдаж байжээ. Одоо гэрлээ тусгая!",
+      "spokenText": "Мэдээ худал байлаа! Хуурмаг аавын үгэнд нуугдаж байжээ. Одоо гэрлээ тусгая!",
+      "targetFile": "assets/vo/r1.mp3"
+    },
+    {
+      "id": "e1",
+      "speaker": "nyagtaa",
+      "speakerName": "Нягтаа",
+      "expression": "wink",
+      "displayText": "Сэтгэл хөдлөм мэдээ сонсвол зогсоод нягтал. Долоо нягталж, нэг түгээ!",
+      "spokenText": "Сэтгэл хөдлөм мэдээ сонсвол зогсоод нягтал. Долоо нягталж, нэг түгээ!",
+      "targetFile": "assets/vo/e1.mp3"
+    },
+    {
+      "id": "e2",
+      "speaker": "narrator",
+      "speakerName": "Өгүүлэгч",
+      "expression": "neutral",
+      "displayText": "Хуурмаг алга болоогүй байна. Нягтаагийн аян дөнгөж эхэлж байна...",
+      "spokenText": "Хуурмаг алга болоогүй байна. Нягтаагийн аян дөнгөж эхэлж байна...",
+      "targetFile": "assets/vo/e2.mp3"
+    },
+    {
+      "id": "k1",
+      "speaker": "tumur",
+      "speakerName": "Төмөр",
+      "expression": "hyped",
+      "displayText": "Нягтаа, бөмбөг тоглох уу?",
+      "spokenText": "Нягтаа, бөмбөг тоглох уу?",
+      "targetFile": "assets/vo/k1.mp3"
+    },
+    {
+      "id": "k2",
+      "speaker": "suvd",
+      "speakerName": "Сувд",
+      "expression": "laughing",
+      "displayText": "Хи-хи! Барь!",
+      "spokenText": "Хи-хи! Барь!",
+      "targetFile": "assets/vo/k2.mp3"
+    }
+  ]
+}

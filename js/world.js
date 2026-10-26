@@ -7,8 +7,9 @@ class World25 {
     this.camPos = c.pos;
     const hg = W.height; this.hg = hg;
     this.sky = scene.add.image(0, 0, `${loc}_sky`).setOrigin(0).setDisplaySize(BGW, GH).setScrollFactor(o.skyF ?? 0.55).setDepth(-30);
-    this.far = scene.add.image(0, 0, `${loc}_far`).setOrigin(0).setScrollFactor(o.farF ?? 0.8).setDepth(-20);
-    this.near = scene.add.image(0, 0, `${loc}_near`).setOrigin(0).setDepth(-10);
+    // Keep every layer in the same coordinate space as the camera, actors and hotspots.
+    this.far = scene.add.image(0, 0, `${loc}_far`).setOrigin(0).setDisplaySize(BGW, GH).setScrollFactor(o.farF ?? 0.8).setDepth(-20);
+    this.near = scene.add.image(0, 0, `${loc}_near`).setOrigin(0).setDisplaySize(BGW, GH).setDepth(-10);
     scene.cameras.main.setBounds(0, 0, BGW, GH);
     if (o.blur) scene.add.rectangle(BGW / 2, GH / 2, BGW * 2, GH * 2, 0xc9cde6).setScrollFactor(0).setDepth(-40);
     if (o.blur && this.near.preFX) [this.sky, this.far, this.near].forEach(im => im.preFX.addBlur(1, 2, 2, o.blur));

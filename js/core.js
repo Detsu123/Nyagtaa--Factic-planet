@@ -147,7 +147,10 @@ class Dialog {
     const l = this.q.shift(); if (!l) return this.close(); this.cur = l;
     const who = WHO[l.who] || WHO.narrator; const s = this.s;
     let pk = l.who === 'mom' || l.who === 'hunter' ? `pt_${l.who}_p` : l.who === 'wood' ? 'pt_wood1_p' : l.who === 'dad' ? `pt_dad_${l.face || 'main'}` : l.who === 'tumur' ? 'pt_gamer_' + (l.face || 'main') : l.who === 'suvd' ? 'pt_girl_' + (l.face || 'main') : l.who === 'khuurmag' ? 'pt_khuurmag_' + (l.face || 'main') : `pt_nyagtaa_${l.face || 'happy'}`;
-    if (!s.textures.exists(pk)) pk = l.who === 'nyagtaa' ? 'pt_nyagtaa_happy' : null;
+    if (!s.textures.exists(pk)) {
+      const fallback = l.who === 'tumur' ? 'pt_gamer_main' : l.who === 'nyagtaa' ? 'pt_nyagtaa_happy' : null;
+      pk = fallback && s.textures.exists(fallback) ? fallback : null;
+    }
     if (pk && l.who !== 'narrator') { const changed = this.portrait.texture.key !== pk || !this.portrait.visible; this.portrait.setTexture(pk).setVisible(true); const sc = 430 / this.portrait.height; this.portrait.setScale(sc);
       this.portrait.setFlipX(false);
       if (changed) { this.portrait.y = GH - 230 + 60; this.portrait.setAlpha(0); s.tweens.add({ targets: this.portrait, y: GH - 230, alpha: 1, duration: 260, ease: 'Back.Out' }); }

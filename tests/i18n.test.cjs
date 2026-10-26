@@ -168,6 +168,26 @@ test('switching mid-dialogue keeps the current line, queue, callback and game st
   assert.equal(i18n.listeners.size, 0);
 });
 
+test('Tumur uses the main portrait when an expression is unavailable and hides it if neither loads', () => {
+  for (const mainAvailable of [true, false]) {
+    const { ctx, run } = setup();
+    const scene = { add: {}, tweens: { add() {} },
+      textures: { exists: key => mainAvailable && key === 'pt_gamer_main' },
+      events: new EventEmitter(), input: { keyboard: null },
+      time: { addEvent(config) { return { ...config, remove() {} }; } },
+    };
+    for (const name of ['container', 'rectangle', 'image', 'graphics']) scene.add[name] = () => Object.assign(new GameObject(), { height: 430 });
+    scene.add.text = (x, y, text) => new GameObject().setText(text);
+    ctx.testScene = scene;
+    const dialog = run('new Dialog(testScene)');
+    dialog.say(['k1']);
+    assert.equal(dialog.cur.who, 'tumur');
+    assert.equal(dialog.portrait.visible, mainAvailable);
+    if (mainAvailable) assert.equal(dialog.portrait.texture.key, 'pt_gamer_main');
+    assert.equal(dialog.full, run('L.k1.mn'));
+  }
+});
+
 test('cached magnifier artwork redraws its text in place after language changes', () => {
   const { run, ctx, i18n } = setup();
   const textures = new Map();
